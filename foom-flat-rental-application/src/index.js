@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Copyright from './screens/SignIn';
 import reportWebVitals from './reportWebVitals';
+import Messages from './screens/Messages';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Copyright />
+    <Messages />
   </React.StrictMode>
 );
 
