@@ -12,7 +12,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import ProfileSettings from '../profile/ProfileSettings';
+import UpperBar from '../profile/UpperBar';
 
 
 const Messages = () => {
@@ -51,7 +51,7 @@ const Messages = () => {
 
     return (
         <Grid style={{width: '100%'}}>
-            <ProfileSettings style={{ width: '100%' }}></ProfileSettings>
+            <UpperBar style={{ width: '100%' }}></UpperBar>
             <Divider orientation="horizontal" flexItem style={{ marginTop: '5px' }} />
 
             <Box

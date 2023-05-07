@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Messages from './screens/Messages';
+import AddProperty from './screens/AddProperty';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Messages />
+    <AddProperty />
   </React.StrictMode>
 );
 

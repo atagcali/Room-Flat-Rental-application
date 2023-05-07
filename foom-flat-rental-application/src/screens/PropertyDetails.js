@@ -8,7 +8,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import image from '../images/image.jpg'
 
-import ProfileSettings from '../profile/ProfileSettings';
+import UpperBar from '../profile/UpperBar';
 
 
 
@@ -58,7 +58,7 @@ const PropertyDetails = () => {
 
     return (
         <div className={classes.root}>
-            <ProfileSettings ></ProfileSettings>
+            <UpperBar ></UpperBar>
             <Divider className={classes.divider} />
             <Typography variant="h4" component="h1" gutterBottom>
                 {title}

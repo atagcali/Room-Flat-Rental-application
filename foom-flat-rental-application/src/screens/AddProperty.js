@@ -3,9 +3,9 @@ import { Typography, Grid, Box, Checkbox, TextField, Divider, Button } from '@ma
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import image from '../images/image.jpg'
+//import image from '../images/image.jpg'
 
-import ProfileSettings from '../profile/ProfileSettings';
+import UpperBar from '../profile/UpperBar';
 
 
 
@@ -36,33 +36,33 @@ const AddProperty = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
      //Edit properties
-      const title = 'Beautiful House';
-      const location = 'New York, USA';
-      const maxGuests = 10
-      const rules = ['No smoking', 'No pets', 'No parties'];
-      const price = 250;
-      const cancellationPolicy = 'Free cancellation within 48 hours';
-      const emergencyAvailability = true;
+    //   const title = 'Beautiful House';
+    //   const location = 'New York, USA';
+    //   const maxGuests = 10
+    //   const rules = ['No smoking', 'No pets', 'No parties'];
+    //   const price = 250;
+    //   const cancellationPolicy = 'Free cancellation within 48 hours';
+    //   const emergencyAvailability = true;
 
     //to make empty add Source of img these
-    // const imagePath = '';
-    // const title = '';
-    // const location = '';
-    // const maxGuests = '';
-    // const rules = [];
-    // const price = '';
-    // const cancellationPolicy = '';
-    // const emergencyAvailability = '';
+     const imagePath = '';
+     const title = '';
+     const location = '';
+     const maxGuests = '';
+     const rules = [];
+     const price = '';
+     const cancellationPolicy = '';
+     const emergencyAvailability = '';
 
     return (
         <div className={classes.root}>
-            <ProfileSettings ></ProfileSettings>
+            <UpperBar ></UpperBar>
             <Divider className={classes.divider} />
             <TextField label="title" variant="outlined" value={title} />
 
             <Grid container spacing={isSmallScreen ? 2 : 4}>
                 <Grid item xs={12} sm={6}>
-                    <img src={image} alt={title} className={classes.image} />
+                    <img src={imagePath} alt={title} className={classes.image} />
                     <Grid container justifyContent="center" alignItems="center" style={{ marginRight: '50px' }}>
                         <Button
                             type="submit"
@@ -136,7 +136,7 @@ const AddProperty = () => {
                                     mb: 2
                                 }}
                             >
-                                Edit
+                                Add Property
                             </Button>
                         </Grid>
                     </Box>
