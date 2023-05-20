@@ -8,6 +8,7 @@ import {
   flexBetweenCenter,
   dFlex,
   displayOnDesktop,
+  flexCenter,
 } from '../themes/commonStyles';
 
 
@@ -28,13 +29,13 @@ const UpperBar = () => {
             px: 4,
           }}
         >
-          <Box sx={displayOnDesktop}>
+          <Box sx={flexCenter}>
             <Logo />
           </Box>
-          <Box sx={displayOnDesktop}>
+          <Box sx={flexCenter}>
             <HouseSearch />
           </Box>
-          <Box sx={displayOnDesktop}>
+          <Box sx={flexCenter}>
             <ProfileSettings />
           </Box>
           
