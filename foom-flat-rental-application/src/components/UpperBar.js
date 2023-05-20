@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import ProfileSettings from './ProfileSettings';
+import BarSettings from './BarSettings';
 import HouseSearch from './HouseSearch';
 import Logo from './Logo';
 import {
@@ -36,7 +36,7 @@ const UpperBar = () => {
             <HouseSearch />
           </Box>
           <Box sx={flexCenter}>
-            <ProfileSettings />
+            <BarSettings />
           </Box>
           
         </Box>

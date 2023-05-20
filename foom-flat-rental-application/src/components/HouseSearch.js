@@ -57,6 +57,7 @@ const HouseSearch = () => {
                   color: (theme) => theme.palette.text.primary,
                   
                 }}
+                textTransform={'none'}
               >
                 Search
               </Typography>
@@ -79,6 +80,7 @@ const HouseSearch = () => {
                   color: (theme) => theme.palette.text.primary,
                   
                 }}
+                textTransform={'none'}
               >
                 MyHomes
               </Typography>

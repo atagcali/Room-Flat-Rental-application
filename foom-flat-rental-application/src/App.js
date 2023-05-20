@@ -1,14 +1,16 @@
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import UpperBar from './components/UpperBar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //import OptionsTab from 'components/OptionsTab';
-import Container from '@mui/material/Container';
 import HouseCards from './components/HouseCards';
 import React from 'react';
 import './App.css';
 import Payment from './components/Payment';
 import EditProfile from './components/EditProfile'; 
-import AddProfile from './components/AddProfile'; 
+import AddProperty from './components/AddProperty';
+import AddProfile from './components/AddProfile';
+import SignIn from './components/SignIn';
 //import Footer from 'components/Footer';
 //import FooterMenu from 'components/FooterMenu';
 import { displayOnDesktop } from './themes/commonStyles';
@@ -16,9 +18,10 @@ import { displayOnDesktop } from './themes/commonStyles';
 
 function App() {
   return (
-<React.Fragment>
-      <CssBaseline />
-      <Box
+
+      <Router>
+        
+        <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -38,15 +41,23 @@ function App() {
             overflowY: 'scroll',
           }}
         >
-          <Container maxWidth="xl" sx={{ mb: 3 }}>
-            <AddProfile/>
-           
-          </Container>
+          
+          
+        <Routes>
+          <Route exact path="/" element={<SignIn/>} />
+          <Route path="/Home" element={<HouseCards/>} />
+          <Route path="/Register" element={<AddProfile/>}/>
+          <Route path="/EditProfile" element={<EditProfile/>} />
+          <Route path ="/ListHouse" element ={<AddProperty/>}/>
+        
+        </Routes>
+       
         </Box>
        
-        
-      </Box>
-    </React.Fragment>
+        </Box>
+      </Router>
+       
+     
   );
 }
 

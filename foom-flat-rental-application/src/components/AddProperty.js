@@ -5,7 +5,6 @@ import { useMediaQuery } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import image from '../images/image.jpg'
 
-import UpperBar from '../profile/UpperBar';
 
 
 
@@ -56,8 +55,8 @@ const AddProperty = () => {
 
     return (
         <div className={classes.root}>
-            <UpperBar ></UpperBar>
-            <Divider className={classes.divider} />
+           
+            
             <TextField label="title" variant="outlined" value={title} />
 
             <Grid container spacing={isSmallScreen ? 2 : 4}>

@@ -1,28 +1,31 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import {Typography, Button} from '@mui/material';
+import { Link } from 'react-router-dom';
 // react icons
-import { FaAirbnb } from 'react-icons/fa';
 import { flexCenter } from '../themes/commonStyles';
-import { pink } from '@mui/material/colors';
 
 const Logo = () => {
   return (
-    <Box sx={flexCenter}>
+  <Button component={Link} to="/" style={{ textDecoration: 'none' }}>
+  <Box sx={flexCenter}>
       
-      <Typography
-        sx={{
-          ml: 1,
-          color: (theme) => theme.palette.secondary.main,
-          fontSize: '20px',
-          fontWeight: 'bold',
-        }}
-        component="h3"
-      >
-        BilkentBooking
-      </Typography>
-    </Box>
-  );
+  <Typography
+    sx={{
+      ml: 1,
+      color: (theme) => theme.palette.secondary.main,
+      fontSize: '20px',
+      fontWeight: 'bold',
+    }}
+    textTransform={'none'}
+  
+    component="h6"
+  >
+    BilkentBooking
+  </Typography>
+</Box>
+  </Button>
+    );
 };
 
 export default Logo;
