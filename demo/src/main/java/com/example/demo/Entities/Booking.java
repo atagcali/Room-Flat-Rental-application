@@ -13,10 +13,13 @@ public class Booking {
     private Timestamp updatedAt;
     private Timestamp createdAt;
 
+    private int homeownerId;
+    private int travellerId;
+
     public Booking() {
     }
 
-    public Booking(int id, int rentalPropertyId, Date checkinDate, Date checkoutDate, String status, BigDecimal pricePaid, Timestamp cancelledAt, Timestamp updatedAt, Timestamp createdAt) {
+    public Booking(int id, int rentalPropertyId, Date checkinDate, Date checkoutDate, String status, BigDecimal pricePaid, Timestamp cancelledAt, Timestamp updatedAt, Timestamp createdAt, int homeownerId, int travellerId) {
         this.id = id;
         this.rentalPropertyId = rentalPropertyId;
         this.checkinDate = checkinDate;
@@ -26,6 +29,8 @@ public class Booking {
         this.cancelledAt = cancelledAt;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.homeownerId = homeownerId;
+        this.travellerId = travellerId;
     }
 
     public int getId() {
@@ -98,5 +103,21 @@ public class Booking {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getHomeownerId() {
+        return homeownerId;
+    }
+
+    public void setHomeownerId(int homeownerId) {
+        this.homeownerId = homeownerId;
+    }
+
+    public int getTravellerId() {
+        return travellerId;
+    }
+
+    public void setTravellerId(int travellerId) {
+        this.travellerId = travellerId;
     }
 }

@@ -7,16 +7,36 @@ public class Message {
     private Timestamp timestamp;
     private Timestamp updatedAt;
     private Timestamp createdAt;
+    private int senderID;
+    private int receiverID;
 
-    public Message() {
-    }
-
-    public Message(int id, String messageBlock, Timestamp timestamp, Timestamp updatedAt, Timestamp createdAt) {
+    public Message(int id, String messageBlock, Timestamp timestamp, Timestamp updatedAt, Timestamp createdAt, int senderID, int receiverID) {
         this.id = id;
         this.messageBlock = messageBlock;
         this.timestamp = timestamp;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.senderID = senderID;
+        this.receiverID = receiverID;
+    }
+
+    public int getSenderID() {
+        return senderID;
+    }
+
+    public void setSenderID(int senderID) {
+        this.senderID = senderID;
+    }
+
+    public int getReceiverID() {
+        return receiverID;
+    }
+
+    public void setReceiverID(int receiverID) {
+        this.receiverID = receiverID;
+    }
+
+    public Message() {
     }
 
     public int getId() {

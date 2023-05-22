@@ -24,11 +24,14 @@ public class RentalProperty {
     private boolean hasBalcony;
     private boolean hasPool;
     private int userId;
+    private int locationID;
 
     public RentalProperty() {
     }
 
-    public RentalProperty(int id, String title, String description, String availabilityCalendar, BigDecimal price, int maxGuests, String rules, String photos, Timestamp updatedAt, Timestamp createdAt, int minStay, int maxStay, String cancellationPolicy, BigDecimal rating, boolean isAvailableInEmergency, boolean isPetFriendly, boolean hasParking, boolean hasBalcony, boolean hasPool, int userId) {
+
+
+    public RentalProperty(int id, String title, String description, String availabilityCalendar, BigDecimal price, int maxGuests, String rules, String photos, Timestamp updatedAt, Timestamp createdAt, int minStay, int maxStay, String cancellationPolicy, BigDecimal rating, boolean isAvailableInEmergency, boolean isPetFriendly, boolean hasParking, boolean hasBalcony, boolean hasPool, int userId, int locationID) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -49,6 +52,7 @@ public class RentalProperty {
         this.hasBalcony = hasBalcony;
         this.hasPool = hasPool;
         this.userId = userId;
+        this.locationID = locationID;
     }
 
     public int getId() {
@@ -209,6 +213,13 @@ public class RentalProperty {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+    public int getLocationID() {
+        return locationID;
+    }
+
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 }
 
