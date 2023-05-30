@@ -12,18 +12,45 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios'; 
 import MessageWindow from './MessageWindow';
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const history = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user,setUser] = useState([null]);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(email);
+    console.log(password);
+    try {
+      const response = await axios.get('http://localhost:8080/api/user/login', {
+        params: {
+          email: email,
+          password: password,
+        }
+      });
+      console.log(response);
+      const user = response.data;
+      console.log(user);
+      setUser(user);
+      if (user !== null) {
+        // Navigate to another route
+
+        const userData = JSON.stringify(user);
+        localStorage.setItem('userData',userData);
+        history('/Home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    
+    
   };
 
   return (
@@ -54,6 +81,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -64,6 +92,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -74,7 +104,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              component={Link} to="/Home"
+              //component={Link} to="/Home"
             >
               Sign In
             </Button>

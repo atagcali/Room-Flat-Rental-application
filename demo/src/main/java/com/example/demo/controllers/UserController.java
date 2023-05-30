@@ -91,7 +91,8 @@ public class UserController {
     User login(@RequestParam String email, @RequestParam String password) {
         String sql = "SELECT * FROM \"user\" WHERE email = ? AND password = ?";
         Object[] params = {email, password};
-
+        System.out.println(email);
+        System.out.println(password);
         List<User> users = jdbcTemplate.query(
                 sql,
                 params,

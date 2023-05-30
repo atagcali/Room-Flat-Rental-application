@@ -48,6 +48,7 @@ const Payment = () => {
             <Grid container rowSpacing={7} columnSpacing={7} justifyContent = 'center '>
                 <Grid item xs={15} sm={4} md={4} lg={3}>  
                         <RentHouse house={house} />
+                       
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={3}>  
                       <Typography style={{

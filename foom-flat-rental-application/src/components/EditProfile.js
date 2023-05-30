@@ -9,15 +9,23 @@ import {
   } from '../themes/commonStyles';
 
 const EditProfile = () => {
-  const user = {
-    name: 'John',
-    surname: 'Doe',
-    password: '******',
-    balance: 2000,
-    email: 'johndoe@example.com',
-    location: 'ankara'
-  };
-
+  const userData = localStorage.getItem('userData');
+  let user = null;
+  if(userData == null){
+     user = {
+      name: 'John',
+      surname: 'Doe',
+      password: '******',
+      balance: 2000,
+      email: 'johndoe@example.com',
+      location: 'ankara'
+    }
+  }
+    else
+    {
+       user = JSON.parse(userData);
+    }
+  
   return (
     <Box sx={{
         padding: 2,
