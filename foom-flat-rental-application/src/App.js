@@ -14,6 +14,8 @@ import SignIn from './components/SignIn';
 //import Footer from 'components/Footer';
 //import FooterMenu from 'components/FooterMenu';
 import { displayOnDesktop } from './themes/commonStyles';
+import ForgotPasswordPage from './components/ForgotPasswordPage';
+import Messages from './components/Messages'
 //import MobileFooter from 'components/MobileFooter';
 
 function App() {
@@ -50,7 +52,8 @@ function App() {
           <Route path="Payment/:id" element = {<Payment/>} />
           <Route path="/EditProfile" element={<EditProfile/>} />
           <Route path ="/ListHouse" element ={<AddProperty/>}/>
-        
+          <Route path="/ForgotPasswordPage" element={<ForgotPasswordPage/>}/>
+          <Route path="/Messages" element={<Messages/>}/>
         </Routes>
        
         </Box>

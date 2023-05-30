@@ -46,7 +46,6 @@ const AddProfile = () => {
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
-  const [cha, setcha] = useState(10)
 
   const handleSubmit = (event) => {
     event.preventDefault();
