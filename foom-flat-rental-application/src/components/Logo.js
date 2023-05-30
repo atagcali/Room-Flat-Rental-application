@@ -7,7 +7,7 @@ import { flexCenter } from '../themes/commonStyles';
 
 const Logo = () => {
   return (
-  <Button component={Link} to="/" style={{ textDecoration: 'none' }}>
+  <Button component={Link} to="/Home" style={{ textDecoration: 'none' }}>
   <Box sx={flexCenter}>
       
   <Typography

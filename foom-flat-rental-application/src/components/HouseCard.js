@@ -6,6 +6,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
+import {Link} from 'react-router-dom';
 import { AiFillStar } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
 import {
@@ -22,7 +23,7 @@ const HouseCard = ({ house }) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const maxSteps = house.houseImages.length; 
-
+  const hid = house.id;
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1); // jumps when we click the next arrow
   };
@@ -103,7 +104,7 @@ const HouseCard = ({ house }) => {
           <Typography component="h3" align = 'left'> {house.house}</Typography>
           <Typography component="h4" align = 'left' variant = 'caption'> {house.describtion}</Typography>
           <Typography component="h5" align = 'left'> {house.price}</Typography>
-          <Button variant="contained">Rent</Button>
+          <Button component={Link} to={`/Payment/${hid}`} variant="contained">Rent</Button>
         </Box>
         <Box sx={{ mt:2 }}>
           <Box sx={dFlex}>

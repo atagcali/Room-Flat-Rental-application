@@ -47,6 +47,7 @@ function App() {
           <Route exact path="/" element={<SignIn/>} />
           <Route path="/Home" element={<HouseCards/>} />
           <Route path="/Register" element={<AddProfile/>}/>
+          <Route path="Payment/:id" element = {<Payment/>} />
           <Route path="/EditProfile" element={<EditProfile/>} />
           <Route path ="/ListHouse" element ={<AddProperty/>}/>
         
