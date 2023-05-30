@@ -1,37 +1,16 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Box, Typography, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
 import { FaRegUserCircle } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
+import axios from 'axios';
 
-const countries = [
-  'Turkey',
-  'Germany',
-  'USA',
- 
-  'France',
-  'Netherlands',
-  'China',
-  'South Africa',
-  
-];
-const cities = [
-  'Ankara',
-  'Berlin',
-  'New York',
-
-  'Paris',
-  'Amsterdam',
-  'Pekin',
-  'Cape Town',
-  
-];
 
 const AddProfile = () => {
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
-
+  const [locations, setLocations] = useState([]);
+  const [currentCountry, setCurrentCountry] = useState('');
   const [user,setUser] = useState({
     name: 'name',
     surname: 'surname',
@@ -41,19 +20,77 @@ const AddProfile = () => {
     email: 'a@g.com',
     country: 'aa',
     city: 'nn',
+    zipcode: 0,
+    neighbourhood: '',
+    district: '',
 
   });
-  const handleChange = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/locations'); // Replace with your backend endpoint to fetch all locations
+      setLocations(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const countriesMap = {};
+  
+  locations.forEach(location => {
+    const country = location.country;
+    const city = location.city;
+    if (country && city) {
+      if (!countriesMap.hasOwnProperty(country)) {
+        countriesMap[country] = [];
+      }
+      countriesMap[country].push(city);
+    }
+  });
+
+  const countries = Object.keys(countriesMap);
+  
+
+  const handleChange2 = (event,value) => {
+      setCurrentCountry(value);
+      setUser({ ...user, country: value, city: '' });
+      console.log(user);
+    
+  };
+  const handleChange3 = (event,value) => {
+
+      setUser({ ...user, city: value });
+    
+  };
+  const handleChange = (event) => {
+
+    setUser({ ...user, [event.target.name]: event.target.value});
+    console.log(user);
+   
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform registration logic here
     if (user.password === user.confirmPassword) {
-      console.log('Registration form submitted:', user);
-      navigate('/home');
-      // Passwords match, proceed with registration
+      const data1 = {
+        name: user.name,
+        surname: user.surname,
+        email: user.email, 
+        password:user.password,
+        phoneNumber: "123123",
+        balance: user.balance,
+        address:user.country,
+        role: 'traveler',
+        dateOfBirth: '2001-09-04',
+      }
+     const data2 = JSON.stringify(data1)
+      const response = await axios.post('http://localhost:8080/api/user', data1);
+      console.log('Registration successful:', response.data);
+      navigate('/');
     } else {
       setIsDialogOpen(true);
       // Show an error message or perform appropriate action
@@ -71,7 +108,7 @@ const AddProfile = () => {
         minHeight: '100vh',
       }}>
       <Typography variant="h5" sx={{ marginBottom: 2 }}>
-        Profile
+        Create an Account
       </Typography>
       <Box sx={{ marginBottom: 2 }}>
       <FaRegUserCircle size={24} />
@@ -158,18 +195,58 @@ const AddProfile = () => {
       options={countries}
       sx={{ width: 300 , mb: 3}}
       renderInput={(params) => <TextField {...params} label="Country" />}
-      onChange={handleChange}
+      onChange={handleChange2}
       required
     />
       <Autocomplete
       disablePortal
       id="combo-box-demo"
-      options={cities}
+      options={countriesMap[currentCountry]}
       sx={{ width: 300 , mb: 5}}
       renderInput={(params) => <TextField {...params} label="City" />}
-      onChange={handleChange}
+      onChange={handleChange3}
       required
     />
+        
+      </Box>
+      <Box sx={{ marginBottom: 2 }}>
+        <TextField
+          label="zipcode"
+          variant="outlined"
+          name = "zipcode"
+         
+          value={user.zipcode}
+          onChange={handleChange}
+        required
+      
+        />
+        </Box>
+
+      <Box sx={{ marginBottom: 2 }}>
+        <TextField
+          label="district"
+          variant="outlined"
+          name = "district"
+         
+          value={user.district}
+          onChange={handleChange}
+         required
+      
+        />
+        
+      </Box>
+     
+      <Box sx={{ marginBottom: 2 }}>
+        <TextField
+          label="neighbourhood"
+          variant="outlined"
+          name = "neighbourhood"
+         
+          value={user.neighbourhood}
+          onChange={handleChange}
+        required
+      
+        />
         
       </Box>
       <Button type='submit'  variant='contained'  size="small" color='secondary' sx={{
