@@ -14,6 +14,7 @@ const BarSettings = () => {
   return (
     <Box sx={flexCenter}>
       <Button component={Link} to="/ListHouse" variant='contained'> List Your House </Button>
+      <Button component={Link} to="/Messages" variant='contained'> Message </Button>
       <Stack direction = "row">
         <DropDown/>
       </Stack>

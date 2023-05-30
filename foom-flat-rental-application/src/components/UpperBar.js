@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import BarSettings from './BarSettings';
 import HouseSearch from './HouseSearch';
 import Logo from './Logo';
+import Messages from './Messages'
 import {
   flexBetweenCenter,
   dFlex,

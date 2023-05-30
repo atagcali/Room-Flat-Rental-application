@@ -1,0 +1,52 @@
+.message-window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    overflow: hidden;
+    z-index: 999;
+    transition: width 0.3s, height 0.3s;
+  }
+  
+  .message-window.open {
+    width: 17%;
+    height: 70%;
+    border-radius: 5px;
+  }
+  
+  .message-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .toggle-icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+  }
+  
+  .message-content {
+    padding: 20px;
+    text-align: center;
+    overflow-y: scroll;
+  }
+  
+  .message-content div {
+    margin-bottom: 10px;
+  }
+  
+  .no-messages {
+    color: #fff;
+  }
+  
+  /* Add additional styling as per your requirements */
+  
