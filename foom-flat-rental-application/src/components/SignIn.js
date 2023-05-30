@@ -27,8 +27,6 @@ export default function SignIn() {
   };
 
   return (
-    <div>
-      <MessageWindow />
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -82,7 +80,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/ForgotPasswordPage" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -96,6 +94,5 @@ export default function SignIn() {
         </Box>
       </Container>
     </ThemeProvider>
-    </div>
   );
 }
