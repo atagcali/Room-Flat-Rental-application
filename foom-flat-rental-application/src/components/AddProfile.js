@@ -10,7 +10,7 @@ const AddProfile = () => {
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [locations, setLocations] = useState([]);
-  const [currentCountry, setCurrentCountry] = useState('');
+ 
   const [user,setUser] = useState({
     name: 'name',
     surname: 'surname',
@@ -18,53 +18,14 @@ const AddProfile = () => {
     confirmPassword: '***',
     balance: 0,
     email: 'a@g.com',
-    country: 'aa',
-    city: 'nn',
-    zipcode: 0,
-    neighbourhood: '',
-    district: '',
+    adress: 'aa',
+    dateofBirth: 'YYYY-MM-DD',
+    phoneNumber: 'xxxx',
+   
 
   });
-  const fetchLocations = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/api/locations'); // Replace with your backend endpoint to fetch all locations
-      setLocations(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchLocations();
-  }, []);
-
-  const countriesMap = {};
+ 
   
-  locations.forEach(location => {
-    const country = location.country;
-    const city = location.city;
-    if (country && city) {
-      if (!countriesMap.hasOwnProperty(country)) {
-        countriesMap[country] = [];
-      }
-      countriesMap[country].push(city);
-    }
-  });
-
-  const countries = Object.keys(countriesMap);
-  
-
-  const handleChange2 = (event,value) => {
-      setCurrentCountry(value);
-      setUser({ ...user, country: value, city: '' });
-      console.log(user);
-    
-  };
-  const handleChange3 = (event,value) => {
-
-      setUser({ ...user, city: value });
-    
-  };
   const handleChange = (event) => {
 
     setUser({ ...user, [event.target.name]: event.target.value});
@@ -81,13 +42,13 @@ const AddProfile = () => {
         surname: user.surname,
         email: user.email, 
         password:user.password,
-        phoneNumber: "123123",
+        phoneNumber: user.phoneNumber,
         balance: user.balance,
-        address:user.country,
+        address:user.adress,
         role: 'traveler',
-        dateOfBirth: '2001-09-04',
+        dateOfBirth: user.dateofBirth,
       }
-     const data2 = JSON.stringify(data1)
+     
       const response = await axios.post('http://localhost:8080/api/user', data1);
       console.log('Registration successful:', response.data);
       navigate('/');
@@ -189,66 +150,46 @@ const AddProfile = () => {
          
       </Box>
       <Box sx={{ marginBottom: 2 }}>
-      <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={countries}
-      sx={{ width: 300 , mb: 3}}
-      renderInput={(params) => <TextField {...params} label="Country" />}
-      onChange={handleChange2}
-      required
-    />
-      <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={countriesMap[currentCountry]}
-      sx={{ width: 300 , mb: 5}}
-      renderInput={(params) => <TextField {...params} label="City" />}
-      onChange={handleChange3}
-      required
-    />
-        
-      </Box>
-      <Box sx={{ marginBottom: 2 }}>
         <TextField
-          label="zipcode"
+          label="PhoneNumber"
           variant="outlined"
-          name = "zipcode"
+          name = "phoneNumber"
          
-          value={user.zipcode}
+          value={user.phoneNumber}
           onChange={handleChange}
         required
       
         />
         </Box>
 
-      <Box sx={{ marginBottom: 2 }}>
-        <TextField
-          label="district"
-          variant="outlined"
-          name = "district"
-         
-          value={user.district}
-          onChange={handleChange}
-         required
       
-        />
-        
-      </Box>
-     
       <Box sx={{ marginBottom: 2 }}>
         <TextField
-          label="neighbourhood"
+          label="Adress"
           variant="outlined"
-          name = "neighbourhood"
+          name = "adress"
          
-          value={user.neighbourhood}
+          value={user.adress}
           onChange={handleChange}
         required
       
         />
+        </Box>
         
-      </Box>
+      <Box sx={{ marginBottom: 2 }}>
+        <TextField
+          label="DateofBirth"
+          variant="outlined"
+          name = "dateofBirth"
+          value={user.dateofBirth}
+          onChange={handleChange}
+        required
+      
+        />
+        </Box>
+
+        
+    
       <Button type='submit'  variant='contained'  size="small" color='secondary' sx={{
             mt: 1,
             ml: 1,
