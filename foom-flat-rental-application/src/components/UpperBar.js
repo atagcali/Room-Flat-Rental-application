@@ -13,7 +13,7 @@ import {
 } from '../themes/commonStyles';
 
 
-const UpperBar = () => {
+const UpperBar = ({ filter, onFilterChange }) => {
   return (
     <Box
       sx={{
@@ -34,7 +34,7 @@ const UpperBar = () => {
             <Logo />
           </Box>
           <Box sx={flexCenter}>
-            <HouseSearch />
+            <HouseSearch filter={filter} onFilterChange={onFilterChange}/>
           </Box>
           <Box sx={flexCenter}>
             <BarSettings />

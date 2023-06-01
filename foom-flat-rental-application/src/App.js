@@ -4,7 +4,7 @@ import UpperBar from './components/UpperBar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //import OptionsTab from 'components/OptionsTab';
 import HouseCards from './components/HouseCards';
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import Payment from './components/Payment';
 import EditProfile from './components/EditProfile'; 
@@ -19,6 +19,16 @@ import Messages from './components/Messages'
 //import MobileFooter from 'components/MobileFooter';
 
 function App() {
+  const [filter, setFilter] = useState({
+    country: '',
+    city: '',
+    guest: 0,
+    inDate: '',
+    outDate: '',
+  });
+  const handleFilterChange = (updatedFilter) => {
+    setFilter(updatedFilter);
+  };
   return (
 
       <Router>
@@ -31,7 +41,7 @@ function App() {
         }}
       >
         <Box>
-          <UpperBar/>
+          <UpperBar filter={filter} onFilterChange={handleFilterChange}/>
         
         </Box>
         <Box
@@ -47,7 +57,7 @@ function App() {
           
         <Routes>
           <Route exact path="/" element={<SignIn/>} />
-          <Route path="/Home" element={<HouseCards/>} />
+          <Route path="/Home" element={<HouseCards filter={filter}/>} />
           <Route path="/Register" element={<AddProfile/>}/>
           <Route path="Payment/:id" element = {<Payment/>} />
           <Route path="/EditProfile" element={<EditProfile/>} />
