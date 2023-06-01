@@ -20,7 +20,7 @@ const choices = [
 
 
 
-const HouseSearch = () => {
+const HouseSearch = ({ filter, onFilterChange }) => {
   const [flag,setFlag] = React.useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const HouseSearch = () => {
                 </Box>
             
             </Button>
-            <SearchPop isOpen={isModalOpen} onClose={closeModal} />
+            <SearchPop filter={filter} onFilterChange={onFilterChange} isOpen={isModalOpen} onClose={closeModal} />
             <Button onClick={handleClick} color={flag ? "primary":"secondary"}>
               <Typography
                 sx={{

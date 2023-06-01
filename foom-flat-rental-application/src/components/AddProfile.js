@@ -106,6 +106,7 @@ const AddProfile = () => {
           type = "password"
           value={user.password}
           onChange={handleChange}
+          
         required
       
         />
