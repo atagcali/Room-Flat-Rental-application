@@ -14,7 +14,7 @@ const HouseCards = ({ filter }) => {
   useEffect(() => {
     const fetchHouses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/rental-properties'); // Replace with your actual API endpoint
+        const response = await axios.get('http://localhost:8080/api/rental-properties-location'); // Replace with your actual API endpoint
         setHouses(response.data);
       } catch (error) {
         console.error('Error fetching houses:', error);
