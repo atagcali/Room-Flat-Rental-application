@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Entities.RentalProperty;
+import com.example.demo.Entities.RentalLocationView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,6 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Collection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -70,12 +70,12 @@ public class RentalPropertyController {
             ps.setInt(8, minStay);
             ps.setInt(9, maxStay);
             ps.setString(10, cancellationPolicy);
-            ps.setBigDecimal(11,rating);
-            ps.setBoolean(12,isAvailableInEmergency);
-            ps.setBoolean(13,isPetFriendly);
-            ps.setBoolean(14,hasParking);
-            ps.setBoolean(15,hasBalcony);
-            ps.setBoolean(16,hasPool);
+            ps.setBigDecimal(11, rating);
+            ps.setBoolean(12, isAvailableInEmergency);
+            ps.setBoolean(13, isPetFriendly);
+            ps.setBoolean(14, hasParking);
+            ps.setBoolean(15, hasBalcony);
+            ps.setBoolean(16, hasPool);
             ps.setInt(17, userId);
             return ps;
         }, keyHolder);
@@ -172,7 +172,7 @@ public class RentalPropertyController {
     @GetMapping("/rental-properties/{id}")
     RentalProperty getRentalPropertyById(@PathVariable int id) {
         String sql = "SELECT * FROM rental_property_located_view WHERE id = ?";
-        Object[] params = { id };
+        Object[] params = {id};
 
         List<RentalProperty> rentalProperties = jdbcTemplate.query(
                 sql,
@@ -216,7 +216,7 @@ public class RentalPropertyController {
     @GetMapping("/rental-properties/user/{userId}")
     Collection<RentalProperty> getRentalPropertyByUserId(@PathVariable int userId) {
         String sql = "SELECT * FROM rental_property_located_view WHERE user_id = ?";
-        Object[] params = { userId };
+        Object[] params = {userId};
 
         List<RentalProperty> rentalProperties = jdbcTemplate.query(
                 sql,
@@ -254,4 +254,148 @@ public class RentalPropertyController {
 
         return rentalProperties;
     }
+
+    @GetMapping("/rental-properties-location")
+    Collection<RentalLocationView> getRentalPropertiesAndLocation() {
+        List<RentalLocationView> rentalLocations = jdbcTemplate.query(
+                "SELECT * FROM rental_property_located_view",
+                (rs, rowNum) -> {
+                    RentalLocationView rentalLocationView = new RentalLocationView();
+                    rentalLocationView.setId(rs.getInt("id"));
+                    rentalLocationView.setTitle(rs.getString("title"));
+                    rentalLocationView.setDescription(rs.getString("description"));
+                    rentalLocationView.setAvailabilityCalendar(rs.getString("availability_calendar"));
+                    rentalLocationView.setPrice(rs.getBigDecimal("price"));
+                    rentalLocationView.setMaxGuests(rs.getInt("max_guests"));
+                    rentalLocationView.setRules(rs.getString("rules"));
+                    rentalLocationView.setPhotos(rs.getString("photos"));
+                    rentalLocationView.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    rentalLocationView.setCreatedAt(rs.getTimestamp("created_at"));
+                    rentalLocationView.setMinStay(rs.getInt("min_stay"));
+                    rentalLocationView.setMaxStay(rs.getInt("max_stay"));
+                    rentalLocationView.setCancellationPolicy(rs.getString("cancellation_policy"));
+                    rentalLocationView.setRating(rs.getBigDecimal("rating"));
+                    rentalLocationView.setAvailableInEmergency(rs.getBoolean("is_available_in_emergency"));
+                    rentalLocationView.setPetFriendly(rs.getBoolean("is_pet_friendly"));
+                    rentalLocationView.setHasParking(rs.getBoolean("has_parking"));
+                    rentalLocationView.setHasBalcony(rs.getBoolean("has_balcony"));
+                    rentalLocationView.setHasPool(rs.getBoolean("has_pool"));
+                    rentalLocationView.setUserId(rs.getInt("user_id"));
+                    rentalLocationView.setLocationId(rs.getInt("location_id"));
+                    rentalLocationView.setCity(rs.getString("city"));
+                    rentalLocationView.setAddress(rs.getString("address"));
+                    rentalLocationView.setZipCode(rs.getString("zip_code"));
+                    rentalLocationView.setCountry(rs.getString("country"));
+                    rentalLocationView.setNeighborhood(rs.getString("neighborhood"));
+                    rentalLocationView.setDistrict(rs.getString("district"));
+                    return rentalLocationView;
+                }
+        );
+
+        for (RentalLocationView rentalLocationView : rentalLocations) {
+            System.out.println(rentalLocationView.getTitle());
+        }
+
+        return rentalLocations;
+    }
+
+    @GetMapping("/rental-properties-location/user/{userId}")
+    Collection<RentalLocationView> getRentalPropertyAndLocationByUserId(@PathVariable int userId) {
+        String sql = "SELECT * FROM rental_property_located_view WHERE user_id = ?";
+        Object[] params = {userId};
+
+        List<RentalLocationView> rentalLocations = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    RentalLocationView rentalLocationView = new RentalLocationView();
+                    rentalLocationView.setId(rs.getInt("id"));
+                    rentalLocationView.setTitle(rs.getString("title"));
+                    rentalLocationView.setDescription(rs.getString("description"));
+                    rentalLocationView.setAvailabilityCalendar(rs.getString("availability_calendar"));
+                    rentalLocationView.setPrice(rs.getBigDecimal("price"));
+                    rentalLocationView.setMaxGuests(rs.getInt("max_guests"));
+                    rentalLocationView.setRules(rs.getString("rules"));
+                    rentalLocationView.setPhotos(rs.getString("photos"));
+                    rentalLocationView.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    rentalLocationView.setCreatedAt(rs.getTimestamp("created_at"));
+                    rentalLocationView.setMinStay(rs.getInt("min_stay"));
+                    rentalLocationView.setMaxStay(rs.getInt("max_stay"));
+                    rentalLocationView.setCancellationPolicy(rs.getString("cancellation_policy"));
+                    rentalLocationView.setRating(rs.getBigDecimal("rating"));
+                    rentalLocationView.setAvailableInEmergency(rs.getBoolean("is_available_in_emergency"));
+                    rentalLocationView.setPetFriendly(rs.getBoolean("is_pet_friendly"));
+                    rentalLocationView.setHasParking(rs.getBoolean("has_parking"));
+                    rentalLocationView.setHasBalcony(rs.getBoolean("has_balcony"));
+                    rentalLocationView.setHasPool(rs.getBoolean("has_pool"));
+                    rentalLocationView.setUserId(rs.getInt("user_id"));
+                    rentalLocationView.setLocationId(rs.getInt("location_id"));
+                    rentalLocationView.setCity(rs.getString("city"));
+                    rentalLocationView.setAddress(rs.getString("address"));
+                    rentalLocationView.setZipCode(rs.getString("zip_code"));
+                    rentalLocationView.setCountry(rs.getString("country"));
+                    rentalLocationView.setNeighborhood(rs.getString("neighborhood"));
+                    rentalLocationView.setDistrict(rs.getString("district"));
+                    return rentalLocationView;
+                }
+        );
+
+        for (RentalLocationView rentalLocationView : rentalLocations) {
+            System.out.println(rentalLocationView.getTitle());
+        }
+
+        return rentalLocations;
+    }
+
+    @GetMapping("/rental-properties-location/{id}")
+    RentalLocationView getRentalPropertyAndLocationById(@PathVariable int id) {
+        String sql = "SELECT * FROM rental_property_located_view WHERE id = ?";
+        Object[] params = {id};
+
+        List<RentalLocationView> rentalLocations = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    RentalLocationView rentalLocationView = new RentalLocationView();
+                    rentalLocationView.setId(rs.getInt("id"));
+                    rentalLocationView.setTitle(rs.getString("title"));
+                    rentalLocationView.setDescription(rs.getString("description"));
+                    rentalLocationView.setAvailabilityCalendar(rs.getString("availability_calendar"));
+                    rentalLocationView.setPrice(rs.getBigDecimal("price"));
+                    rentalLocationView.setMaxGuests(rs.getInt("max_guests"));
+                    rentalLocationView.setRules(rs.getString("rules"));
+                    rentalLocationView.setPhotos(rs.getString("photos"));
+                    rentalLocationView.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    rentalLocationView.setCreatedAt(rs.getTimestamp("created_at"));
+                    rentalLocationView.setMinStay(rs.getInt("min_stay"));
+                    rentalLocationView.setMaxStay(rs.getInt("max_stay"));
+                    rentalLocationView.setCancellationPolicy(rs.getString("cancellation_policy"));
+                    rentalLocationView.setRating(rs.getBigDecimal("rating"));
+                    rentalLocationView.setAvailableInEmergency(rs.getBoolean("is_available_in_emergency"));
+                    rentalLocationView.setPetFriendly(rs.getBoolean("is_pet_friendly"));
+                    rentalLocationView.setHasParking(rs.getBoolean("has_parking"));
+                    rentalLocationView.setHasBalcony(rs.getBoolean("has_balcony"));
+                    rentalLocationView.setHasPool(rs.getBoolean("has_pool"));
+                    rentalLocationView.setUserId(rs.getInt("user_id"));
+                    rentalLocationView.setLocationId(rs.getInt("location_id"));
+                    rentalLocationView.setCity(rs.getString("city"));
+                    rentalLocationView.setAddress(rs.getString("address"));
+                    rentalLocationView.setZipCode(rs.getString("zip_code"));
+                    rentalLocationView.setCountry(rs.getString("country"));
+                    rentalLocationView.setNeighborhood(rs.getString("neighborhood"));
+                    rentalLocationView.setDistrict(rs.getString("district"));
+                    return rentalLocationView;
+                }
+        );
+
+        if (rentalLocations.isEmpty()) {
+            throw new NoSuchElementException("Rental property not found with ID: " + id);
+        }
+
+        System.out.println(rentalLocations.get(0).getTitle());
+        return rentalLocations.get(0);
+    }
+
+
+
 }
