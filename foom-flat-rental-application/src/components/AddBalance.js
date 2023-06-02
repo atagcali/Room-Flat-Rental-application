@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ChangePassword = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordChanged, setPasswordChanged] = useState(false);
+const AddBalance = () => {
+  const [newBalance, setNewBalance] = useState('');
+  const [balanceChanged, setBalanceChanged] = useState(false);
 
-  const handleChangePassword = async (e) => {
+  const handleChangeBalance = async (e) => {
     e.preventDefault();
 
     try {
       const currentUser = JSON.parse(localStorage.getItem('userData'));
-      const updatedUser = { ...currentUser, password: newPassword };
+      console.log("new balance: "+newBalance);
+      console.log("old balance: "+currentUser.balance);
+      const total = parseFloat(newBalance) + parseFloat(currentUser.balance);
+      const updatedUser = { ...currentUser, balance: total };
 
       await axios.put(`http://localhost:8080/api/user/${currentUser.userId}`, {
         name: updatedUser.name,
@@ -28,7 +31,7 @@ const ChangePassword = () => {
       localStorage.setItem('userData', JSON.stringify(updatedUser));
 
       // Set the passwordChanged state to true
-      setPasswordChanged(true);
+      setBalanceChanged(true);
     } catch (error) {
       // Handle error and provide appropriate feedback to the user
       console.log(error);
@@ -37,20 +40,20 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <h2>Change Password</h2>
-      {passwordChanged && <p>Password changed successfully!</p>}
-      <form onSubmit={handleChangePassword}>
+      <h2>Add Balance</h2>
+      {balanceChanged && <p>Balance added successfully!</p>}
+      <form onSubmit={handleChangeBalance}>
         <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="New Password"
+          type="text"
+          value={newBalance}
+          onChange={(e) => setNewBalance(e.target.value)}
+          placeholder="New Balance"
           required
         />
-        <button type="submit">Change Password</button>
+        <button type="submit">Add Balance</button>
       </form>
     </div>
   );
 };
 
-export default ChangePassword;
+export default AddBalance;

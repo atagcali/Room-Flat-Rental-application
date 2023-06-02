@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { FaRegUserCircle } from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 import {
     flexBetweenCenter,
     dFlex,
@@ -78,7 +79,7 @@ const EditProfile = () => {
             sx: { fontWeight: 'bold' } // custom styles for the input
           }}
         />
-        <Button variant='contained' size="small" sx={{
+        <Button component={Link} to="/ChangePassword" variant='contained' size="small" sx={{
             mt: 1,
             ml: 1,
         }}> Change Password</Button>
@@ -94,7 +95,7 @@ const EditProfile = () => {
             sx: { fontWeight: 'bold' } // custom styles for the input
           }}
         />
-        <Button variant='contained' size="small" sx={{
+        <Button component={Link} to="/AddBalance" variant='contained' size="small" sx={{
             mt: 1,
             ml: 1,
         }}> Add Balance</Button>
@@ -110,26 +111,10 @@ const EditProfile = () => {
             sx: { fontWeight: 'bold' } // custom styles for the input
           }}
         />
-         <Button variant='contained' size="small" sx={{
+         <Button component={Link} to="/ChangeEmail" variant='contained' size="small" sx={{
             mt: 1,
             ml: 1,
         }}> Change email</Button>
-      </Box>
-      <Box sx={{ marginBottom: 2 }}>
-        <TextField
-          label="location"
-          variant="outlined"
-          value={user.location}
-          InputProps={{
-            readOnly: true,
-            disableUnderline: true,
-            sx: { fontWeight: 'bold' } // custom styles for the input
-          }}
-        />
-         <Button variant='contained' size="small" sx={{
-            mt: 1,
-            ml: 1,
-        }}> Change location</Button>
       </Box>
     </Box>
   );

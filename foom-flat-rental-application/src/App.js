@@ -15,7 +15,10 @@ import SignIn from './components/SignIn';
 //import FooterMenu from 'components/FooterMenu';
 import { displayOnDesktop } from './themes/commonStyles';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
-import Messages from './components/Messages'
+import Messages from './components/Messages';
+import ChangePassword from './components/ChangePassword';
+import AddBalance from './components/AddBalance';
+import ChangeEmail from './components/ChangeEmail';
 //import MobileFooter from 'components/MobileFooter';
 
 function App() {
@@ -64,6 +67,9 @@ function App() {
           <Route path ="/ListHouse" element ={<AddProperty/>}/>
           <Route path="/ForgotPasswordPage" element={<ForgotPasswordPage/>}/>
           <Route path="/Messages" element={<Messages/>}/>
+          <Route path="/ChangePassword" element={<ChangePassword/>}/>
+          <Route path="/AddBalance" element={<AddBalance/>}/>
+          <Route path="/ChangeEmail" element={<ChangeEmail/>}/>
         </Routes>
        
         </Box>

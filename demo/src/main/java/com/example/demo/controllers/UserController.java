@@ -188,16 +188,21 @@ public class UserController {
         String address = jsonNode.get("address").asText();
         String role = jsonNode.get("role").asText();
 
-        String dateOfBirthStr = jsonNode.get("dateOfBirth").asText();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth = null;
-
-        try {
-            dateOfBirth = dateFormat.parse(dateOfBirthStr);
-        } catch (ParseException e) {
-            // Handle the parse exception if the date format is invalid
-            e.printStackTrace();
-        }
+        //Date dateOfBirth = null;
+        //if(jsonNode.get("dateOfBirth")!=null) {
+        //    String dateOfBirthStr = jsonNode.get("dateOfBirth").asText();
+        //    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//
+        //    try {
+        //        dateOfBirth = dateFormat.parse(dateOfBirthStr);
+        //    } catch (ParseException e) {
+        //        // Handle the parse exception if the date format is invalid
+        //        e.printStackTrace();
+        //    }
+        //}
+        //else {
+//
+        //}
 
         // Perform further operations with the updated user information
         System.out.println("Updated User ID: " + id);
@@ -209,10 +214,10 @@ public class UserController {
         System.out.println("Balance: " + balance);
         System.out.println("Address: " + address);
         System.out.println("Role: " + role);
-        System.out.println("Date: " + dateOfBirth.toString());
+        //System.out.println("Date: " + dateOfBirth.toString());
 
         jdbcTemplate.update(
-                "UPDATE \"user\" SET name = ?, surname = ?, email = ?, password = ?, phone_number = ?, balance = ?, address = ?, role = ?, date_of_birth = ? WHERE user_id = ?",
+                "UPDATE \"user\" SET name = ?, surname = ?, email = ?, password = ?, phone_number = ?, balance = ?, address = ?, role = ? /*date_of_birth = ?*/ WHERE user_id = ?",
                 name,
                 surname,
                 email,
@@ -221,7 +226,7 @@ public class UserController {
                 balance,
                 address,
                 role,
-                new java.sql.Date(dateOfBirth.getTime()),
+                //new java.sql.Date(dateOfBirth.getTime()),
                 id
         );
     }

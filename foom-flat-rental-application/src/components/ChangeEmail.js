@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ChangePassword = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordChanged, setPasswordChanged] = useState(false);
+const ChangeEmail = () => {
+  const [newEmail, setNewEmail] = useState('');
+  const [emailChanged, setEmailChanged] = useState(false);
 
-  const handleChangePassword = async (e) => {
+  const handleChangeEmail = async (e) => {
     e.preventDefault();
 
     try {
       const currentUser = JSON.parse(localStorage.getItem('userData'));
-      const updatedUser = { ...currentUser, password: newPassword };
+      const updatedUser = { ...currentUser, email: newEmail };
 
       await axios.put(`http://localhost:8080/api/user/${currentUser.userId}`, {
         name: updatedUser.name,
@@ -24,11 +24,11 @@ const ChangePassword = () => {
         dateOfBirth: updatedUser.dateOfBirth
       });
 
-      // Update the user object in localStorage with the new password
+      // Update the user object in localStorage with the new Email
       localStorage.setItem('userData', JSON.stringify(updatedUser));
 
-      // Set the passwordChanged state to true
-      setPasswordChanged(true);
+      // Set the EmailChanged state to true
+      setEmailChanged(true);
     } catch (error) {
       // Handle error and provide appropriate feedback to the user
       console.log(error);
@@ -37,20 +37,24 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <h2>Change Password</h2>
-      {passwordChanged && <p>Password changed successfully!</p>}
-      <form onSubmit={handleChangePassword}>
+      <h2>Change Email</h2>
+      {emailChanged && <p>Email changed successfully!</p>}
+      <form onSubmit={handleChangeEmail}>
         <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="New Password"
+          type="email"
+          id="email"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          value={newEmail}
+          onChange={(e) => setNewEmail(e.target.value)}
+          placeholder="New Email"
           required
         />
-        <button type="submit">Change Password</button>
+        <button type="submit">Change Email</button>
       </form>
     </div>
   );
 };
 
-export default ChangePassword;
+export default ChangeEmail;
