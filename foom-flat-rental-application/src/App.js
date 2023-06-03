@@ -11,12 +11,13 @@ import EditProfile from './components/EditProfile';
 import AddProperty from './components/AddProperty';
 import AddProfile from './components/AddProfile';
 import SignIn from './components/SignIn';
+import MyHouses from './components/MyHouses';
 //import Footer from 'components/Footer';
 //import FooterMenu from 'components/FooterMenu';
 import { displayOnDesktop } from './themes/commonStyles';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
 import Messages from './components/Messages';
-import ChangePassword from './components/ChangePassword';
+import ChangePassword from './components/changePassword';
 import AddBalance from './components/AddBalance';
 import ChangeEmail from './components/ChangeEmail';
 //import MobileFooter from 'components/MobileFooter';
@@ -61,6 +62,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<SignIn/>} />
           <Route path="/Home" element={<HouseCards filter={filter}/>} />
+          <Route path="/MyHouses" element={<MyHouses/>} />
           <Route path="/Register" element={<AddProfile/>}/>
           <Route path="Payment/:id" element = {<Payment/>} />
           <Route path="/EditProfile" element={<EditProfile/>} />

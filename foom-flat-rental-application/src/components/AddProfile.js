@@ -27,9 +27,19 @@ const AddProfile = () => {
  
   
   const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    setUser({ ...user, [event.target.name]: event.target.value});
-    console.log(user);
+    if (name === 'balance') {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: parseFloat(value) || 0, // Convert the value to a number or set it to 0 if it's not a valid number
+      }));
+    } else {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: value,
+      }));
+    }
    
   };
 

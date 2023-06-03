@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
@@ -23,6 +23,7 @@ const choices = [
 const HouseSearch = ({ filter, onFilterChange }) => {
   const [flag,setFlag] = React.useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -33,6 +34,10 @@ const HouseSearch = ({ filter, onFilterChange }) => {
   };
   const handleClick = () =>{
     setFlag(!flag); 
+  };
+  const handleClick2 = () =>{
+    setFlag(!flag); 
+    navigate("/MyHouses");
   };
   return (
     <Paper
@@ -74,7 +79,7 @@ const HouseSearch = ({ filter, onFilterChange }) => {
             
             </Button>
             <SearchPop filter={filter} onFilterChange={onFilterChange} isOpen={isModalOpen} onClose={closeModal} />
-            <Button onClick={handleClick} color={flag ? "primary":"secondary"}>
+            <Button onClick={handleClick2} color={flag ? "primary":"secondary"}>
               <Typography
                 sx={{
                   color: (theme) => theme.palette.text.primary,
