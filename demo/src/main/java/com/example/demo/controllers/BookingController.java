@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Entities.Booking;
+import com.example.demo.Entities.BookingInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -160,6 +161,37 @@ public class BookingController {
         return bookings;
     }
 
+    @GetMapping("/bookingsWithLocations")
+    Collection<BookingInfo> getAllBookingsWithLocations() {
+        List<BookingInfo> bookingInfos = jdbcTemplate.query(
+                "SELECT * FROM booking_with_location",
+                (rs, rowNum) -> {
+                    BookingInfo bookingInfo = new BookingInfo();
+                    bookingInfo.setBookingId(rs.getInt("booking_id"));
+                    bookingInfo.setRentalPropertyId(rs.getInt("rental_property_id"));
+                    bookingInfo.setRentalPropertyTitle(rs.getString("rental_property_title"));
+                    bookingInfo.setLocationId(rs.getInt("location_id"));
+                    bookingInfo.setCity(rs.getString("city"));
+                    bookingInfo.setAddress(rs.getString("address"));
+                    bookingInfo.setZipCode(rs.getString("zip_code"));
+                    bookingInfo.setCountry(rs.getString("country"));
+                    bookingInfo.setNeighborhood(rs.getString("neighborhood"));
+                    bookingInfo.setDistrict(rs.getString("district"));
+                    bookingInfo.setHomeownerId(rs.getInt("homeowner_id"));
+                    bookingInfo.setTravellerId(rs.getInt("traveller_id"));
+                    return bookingInfo;
+                }
+        );
+
+        for (BookingInfo bookingInfo : bookingInfos) {
+            System.out.println(bookingInfo.getBookingId());
+        }
+
+        return bookingInfos;
+    }
+
+
+
     @GetMapping("/bookings/traveller/{travellerId}")
     Collection<Booking> getBookingsByTravellerId(@PathVariable int travellerId) {
         String sql = "SELECT * FROM booking_join_view WHERE traveller_id = ?";
@@ -189,6 +221,40 @@ public class BookingController {
         return bookings;
     }
 
+    @GetMapping("/bookingsWithLocations/traveller/{travellerId}")
+    Collection<BookingInfo> getBookingsWithLocationsByTravellerId(@PathVariable int travellerId) {
+        String sql = "SELECT * FROM booking_with_location WHERE traveller_id = ?";
+        Object[] params = { travellerId };
+
+        List<BookingInfo> bookingInfos = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    BookingInfo bookingInfo = new BookingInfo();
+                    bookingInfo.setBookingId(rs.getInt("booking_id"));
+                    bookingInfo.setRentalPropertyId(rs.getInt("rental_property_id"));
+                    bookingInfo.setRentalPropertyTitle(rs.getString("rental_property_title"));
+                    bookingInfo.setLocationId(rs.getInt("location_id"));
+                    bookingInfo.setCity(rs.getString("city"));
+                    bookingInfo.setAddress(rs.getString("address"));
+                    bookingInfo.setZipCode(rs.getString("zip_code"));
+                    bookingInfo.setCountry(rs.getString("country"));
+                    bookingInfo.setNeighborhood(rs.getString("neighborhood"));
+                    bookingInfo.setDistrict(rs.getString("district"));
+                    bookingInfo.setHomeownerId(rs.getInt("homeowner_id"));
+                    bookingInfo.setTravellerId(rs.getInt("traveller_id"));
+                    return bookingInfo;
+                }
+        );
+
+        for (BookingInfo bookingInfo : bookingInfos) {
+            System.out.println(bookingInfo.getBookingId());
+        }
+
+        return bookingInfos;
+    }
+
+
     @GetMapping("/bookings/homeowner/{homeownerId}")
     Collection<Booking> getBookingsByHomeownerId(@PathVariable int homeownerId) {
         String sql = "SELECT * FROM booking_join_view WHERE homeowner_id = ?";
@@ -217,6 +283,40 @@ public class BookingController {
 
         return bookings;
     }
+
+    @GetMapping("/bookingsWithLocations/homeowner/{homeownerId}")
+    Collection<BookingInfo> getBookingsWithLocationsByHomeownerId(@PathVariable int homeownerId) {
+        String sql = "SELECT * FROM booking_with_location WHERE homeowner_id = ?";
+        Object[] params = { homeownerId };
+
+        List<BookingInfo> bookingInfos = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    BookingInfo bookingInfo = new BookingInfo();
+                    bookingInfo.setBookingId(rs.getInt("booking_id"));
+                    bookingInfo.setRentalPropertyId(rs.getInt("rental_property_id"));
+                    bookingInfo.setRentalPropertyTitle(rs.getString("rental_property_title"));
+                    bookingInfo.setLocationId(rs.getInt("location_id"));
+                    bookingInfo.setCity(rs.getString("city"));
+                    bookingInfo.setAddress(rs.getString("address"));
+                    bookingInfo.setZipCode(rs.getString("zip_code"));
+                    bookingInfo.setCountry(rs.getString("country"));
+                    bookingInfo.setNeighborhood(rs.getString("neighborhood"));
+                    bookingInfo.setDistrict(rs.getString("district"));
+                    bookingInfo.setHomeownerId(rs.getInt("homeowner_id"));
+                    bookingInfo.setTravellerId(rs.getInt("traveller_id"));
+                    return bookingInfo;
+                }
+        );
+
+        for (BookingInfo bookingInfo : bookingInfos) {
+            System.out.println(bookingInfo.getBookingId());
+        }
+
+        return bookingInfos;
+    }
+
     @GetMapping("/bookings/{id}")
     Booking getBookingById(@PathVariable int id) {
         String sql = "SELECT * FROM booking_join_view WHERE booking_id = ?";
@@ -246,4 +346,34 @@ public class BookingController {
         System.out.println(bookings.get(0).getId());
         return bookings.get(0);
     }
+
+    @GetMapping("/bookingsWithLocations/{bookingId}")
+    BookingInfo getBookingWithLocationByBookingId(@PathVariable int bookingId) {
+        String sql = "SELECT * FROM booking_with_location WHERE booking_id = ?";
+        Object[] params = { bookingId };
+
+        List<BookingInfo> bookingInfos = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    BookingInfo bookingInfo = new BookingInfo();
+                    bookingInfo.setBookingId(rs.getInt("booking_id"));
+                    bookingInfo.setRentalPropertyId(rs.getInt("rental_property_id"));
+                    bookingInfo.setRentalPropertyTitle(rs.getString("rental_property_title"));
+                    bookingInfo.setLocationId(rs.getInt("location_id"));
+                    bookingInfo.setCity(rs.getString("city"));
+                    bookingInfo.setAddress(rs.getString("address"));
+                    bookingInfo.setZipCode(rs.getString("zip_code"));
+                    bookingInfo.setCountry(rs.getString("country"));
+                    bookingInfo.setNeighborhood(rs.getString("neighborhood"));
+                    bookingInfo.setDistrict(rs.getString("district"));
+                    bookingInfo.setHomeownerId(rs.getInt("homeowner_id"));
+                    bookingInfo.setTravellerId(rs.getInt("traveller_id"));
+                    return bookingInfo;
+                }
+        );
+
+        return bookingInfos.get(0);
+    }
+
 }
