@@ -10,6 +10,7 @@ import Payment from './components/Payment';
 import EditProfile from './components/EditProfile'; 
 import AddProperty from './components/AddProperty';
 import AddProfile from './components/AddProfile';
+import Stats from './components/Stats';
 import SignIn from './components/SignIn';
 import MyHouses from './components/MyHouses';
 import BookedProperty from './components/BookedProperty';
@@ -32,6 +33,9 @@ function App() {
     guest: 0,
     inDate: '',
     outDate: '',
+    title: '',
+    minPrice: 0,
+    maxPrice: 9999,
   });
   const handleFilterChange = (updatedFilter) => {
     setFilter(updatedFilter);
@@ -66,6 +70,7 @@ function App() {
           <Route exact path="/" element={<SignIn/>} />
           <Route path="/Home" element={<HouseCards filter={filter}/>} />
           <Route path="/MyHouses" element={<MyHouses/>} />
+          <Route path="/Stats" element={<Stats/>} />
           <Route path="/MyBookings" element={<BookedProperty/>} />
           <Route path="/Register" element={<AddProfile/>}/>
           <Route path="Payment/:id" element = {<Payment/>} />

@@ -10,11 +10,18 @@ import dayjs from 'dayjs';
 
 const HouseCards = ({ filter }) => {
   const [houses, setHouses] = useState([]);
-
+  const { title, minPrice,maxPrice } = filter;
   useEffect(() => {
+    
     const fetchHouses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/rental-properties-location'); // Replace with your actual API endpoint
+        const response = await axios.get('http://localhost:8080/api/rental-properties-location', {
+          params: {
+            titleName: title,
+            maxPrice: maxPrice,
+            minPrice: minPrice
+          }
+        });
         setHouses(response.data);
       } catch (error) {
         console.error('Error fetching houses:', error);
@@ -22,18 +29,20 @@ const HouseCards = ({ filter }) => {
     };
 
     fetchHouses();
-  }, []);
+  }, [title,minPrice,maxPrice]);
 
   // Apply filtering based on the filter object
   const filteredCards = houses.filter((house) => {
     // Perform filtering logic based on the filter properties
-    if (filter.country && house.house !== filter.country) {
+    console.log(house);
+    console.log(filter);
+    if (filter.country && (house.country !== filter.country)) {
       return false;
     }
-   /* if (filter.city && house.city !== filter.city) {
+    if (filter.city && house.city !== filter.city) {
       return false;
     }
-    if (filter.guests && house.guests < filter.guests) {
+    /*if (filter.guests && house.guests < filter.guests) {
       return false;
     }
     if (filter.inDate && dayjs(house.inDate).isBefore(filter.inDate, 'day')) {
@@ -46,7 +55,6 @@ const HouseCards = ({ filter }) => {
 
     return true; // Include the house in the filtered result
   });
-
   return (
     <Box sx={{ mx: 2 }}>
       <Grid container rowSpacing={3} columnSpacing={3}>

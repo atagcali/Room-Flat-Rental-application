@@ -1,5 +1,6 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { Typography, Grid, Box, Checkbox, TextField, Divider, Button } from '@material-ui/core';
+import Autocomplete from '@mui/material/Autocomplete';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -35,15 +36,43 @@ const AddProperty = () => {
     const userData = localStorage.getItem('userData');
     const data1 = JSON.parse(userData);
     const navigate = useNavigate();
-     //Edit properties
-    //   const title = 'Beautiful House';
-    //   const location = 'New York, USA';
-    //   const maxGuests = 10
-    //   const rules = ['No smoking', 'No pets', 'No parties'];
-    //   const price = 250;
-    //   const cancellationPolicy = 'Free cancellation within 48 hours';
-    //   const emergencyAvailability = true;
-
+    const [locations, setLocations] = useState([]);
+    const [locationId, setLocationId] = useState(0);
+    const [tempFilter, setTempFilter] = useState('');
+    const countriesMap = {};
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:8080/api/locations'); // Replace with your actual API endpoint
+          setLocations(response.data);
+        } catch (error) {
+          console.error('Error fetching location data:', error);
+        }
+      };
+  
+      
+        fetchData();
+      
+    }, []);
+    const citiesMap = {};
+    locations.forEach((location) => {
+      const country1 = location.country;
+      const city2 = location.city;
+      const id = location.id;
+      if (country1 && city2) {
+        if (!countriesMap.hasOwnProperty(country1)) {
+          countriesMap[country1] = [];
+        }
+        
+        
+       countriesMap[country1][id] = city2;
+       citiesMap[city2] = id;
+      }
+    });
+  
+    const countries = Object.keys(countriesMap);
+   
     //to make empty add Source of img these
     const [house,setHouse] = useState({
         title: 'title',
@@ -72,11 +101,12 @@ const AddProperty = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'balance' || name === 'maxGuests'  || name === 'maxStay' || name === 'minStay') {
+    if (name === 'balance' || name === 'maxGuests'  || name === 'maxStay' || name === 'minStay' || name === 'locationId') {
       setHouse((prevHouse) => ({
         ...prevHouse,
         [name]: parseFloat(value) || 0, // Convert the value to a number or set it to 0 if it's not a valid number
       }));
+      console.log(house);
     } 
     else if(name === 'price'){
         setHouse((prevHouse) => ({
@@ -92,6 +122,20 @@ const AddProperty = () => {
     }
    
   };
+  const handleCountryChange = (event, value) => {
+    setTempFilter(value);
+};
+
+const handleCityChange = (event, value) => {
+    setLocationId(citiesMap[value]);
+    setHouse(prevHouse => ({
+        ...prevHouse,
+        locationId: parseInt(citiesMap[value]),
+      }));
+
+      
+
+};
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     setHouse((prevHouse) => ({
@@ -137,8 +181,22 @@ const AddProperty = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Box className={classes.property}>
-                        <Typography variant="h6" gutterBottom>Location:</Typography>
-                        <TextField label="location" variant="outlined" name = 'location'onChange={handleChange}/>
+                    <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={countries}
+            sx={{ width: 300, mb: 3 }}
+            renderInput={(params) => <TextField {...params} label="Country" />}
+            onChange={handleCountryChange}
+          />
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={countriesMap[tempFilter] || []}
+            sx={{ width: 300, mb: 5 }}
+            renderInput={(params) => <TextField {...params} label="City" />}
+            onChange={handleCityChange}
+          />
                     </Box>
                     <Box className={classes.property}>
                         <Typography variant="h6" gutterBottom>Description:</Typography>
@@ -149,11 +207,11 @@ const AddProperty = () => {
                         <TextField label="Maximum guests" variant="outlined" name= 'maxGuests' onChange={handleChange} />
                     </Box>
                       <Box className={classes.property}>
-                        <Typography variant="h6" gutterBottom>Max Guests:</Typography>
+                        <Typography variant="h6" gutterBottom>Max Stay:</Typography>
                         <TextField label="Maximum Stay" variant="outlined" name= 'maxStay' onChange={handleChange} />
                     </Box>
                     <Box className={classes.property}>
-                        <Typography variant="h6" gutterBottom>Max Guests:</Typography>
+                        <Typography variant="h6" gutterBottom>Min Stay:</Typography>
                         <TextField label="Minimum Stay" variant="outlined" name= 'minStay' onChange={handleChange} />
                     </Box>
                     <Box className={classes.property} >

@@ -4,6 +4,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
+import Slider from '@material-ui/core/Slider';
 import { Modal, Typography,Grid , TextField, Button, makeStyles } from '@material-ui/core';
 
 const ITEM_HEIGHT = 48;
@@ -45,8 +46,20 @@ const useStyles = makeStyles((theme) => ({
     const [locations, setLocations] = useState([]);
     const [tempFilter, setTempFilter] = useState(filter);
     const countriesMap = {};
+    const [priceRange, setPriceRange] = useState([0, 10000]); // Initial price range values
+
+    const handlePriceChange = (event, newValue) => {
+      setPriceRange(newValue);
+      setTempFilter((prevFilter) => ({
+        ...prevFilter,
+        minPrice: newValue[0],
+        maxPrice: newValue[1],
+      }));
+
+    };
   
     useEffect(() => {
+      setPriceRange([filter.minPrice,filter.maxPrice]);
       const fetchData = async () => {
         try {
           const response = await axios.get('http://localhost:8080/api/locations'); // Replace with your actual API endpoint
@@ -85,6 +98,16 @@ const useStyles = makeStyles((theme) => ({
         ...prevFilter,
         country: value
       }));
+      console.log(tempFilter.country);
+    };
+    
+    const handleTitleChange = (event) => {
+      const value = event.target.value;
+      setTempFilter((prevFilter) => ({
+        ...prevFilter,
+        title: value
+      }));
+     
     };
   
     const handleCityChange = (event, value) => {
@@ -92,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
         ...prevFilter,
         city: value
       }));
+      console.log(tempFilter.city);
     };
   
     const handleInDateChange = (date) => {
@@ -108,14 +132,18 @@ const useStyles = makeStyles((theme) => ({
       }));
     };
     const handleResetFilter = () => {
-      setTempFilter({
+      const newFilter = {
         country: '',
         city: '',
         inDate: dayjs(),
         outDate: dayjs(),
-        guests: 1
-      });
-      onFilterChange(tempFilter);
+        guests: 1,
+        title: '',
+        minPrice: 0,
+        maxPrice: 9999,
+      };
+      setTempFilter(newFilter);
+      onFilterChange(newFilter);
       onClose();
     };
   
@@ -127,13 +155,21 @@ const useStyles = makeStyles((theme) => ({
     };
   
     const handleClose = () => {
+
       onFilterChange(tempFilter);
+      
       onClose();
     };
   
     return (
       <Modal open={isOpen} onClose={handleClose} className={classes.searchModal}>
         <div className={classes.modalContent}>
+        <TextField
+            className={classes.inputField}
+            label="Title"
+            value={tempFilter.title}
+            onChange={handleTitleChange}
+          />
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -158,6 +194,16 @@ const useStyles = makeStyles((theme) => ({
             value={tempFilter.guests}
             onChange={handleGuestsChange}
           />
+        
+             <Slider
+        value={priceRange}
+        onChange={handlePriceChange}
+        valueLabelDisplay="auto"
+        min={0}
+        max={10000}
+      />
+       <p>Lower Price: ${priceRange[0]}</p>
+      <p>Higher Price: ${priceRange[1]}</p>
           <Button
             className={classes.button}
             variant="contained"
