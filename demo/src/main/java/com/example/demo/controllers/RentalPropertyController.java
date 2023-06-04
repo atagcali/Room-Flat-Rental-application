@@ -454,7 +454,19 @@ public class RentalPropertyController {
         return rentalLocations;
     }
 
+    @GetMapping("/emergency-rental-properties-by-city")
+    public Map<String, Integer> getEmergencyRentalPropertiesByCity() {
+        String sql = "SELECT city, COUNT(*) FROM rental_property_located_view WHERE is_available_in_emergency = TRUE GROUP BY city";
 
+        List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+        Map<String, Integer> resultMap = new HashMap<>();
+        for (Map<String, Object> row : results) {
+            resultMap.put((String)row.get("city"), ((Long)row.get("count")).intValue());
+        }
+
+        System.out.println(resultMap);
+        return resultMap;
+    }
 
 
 }
