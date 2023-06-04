@@ -28,16 +28,18 @@ public class ReviewController {
         int rating = jsonNode.get("rating").asInt();
         String reviewText = jsonNode.get("review").asText();
         int homeownerId = jsonNode.get("homeownerId").asInt();
+        int rentalPropertyId = jsonNode.get("houseId").asInt();
         int travellerId = jsonNode.get("travellerId").asInt();
         int bookId = jsonNode.get("bookId").asInt();
 
         jdbcTemplate.update(
-                "INSERT INTO review (rating, review, homeowner_id, traveller_id, book_id) VALUES (?, ?, ?, ?, ?)",
+                "INSERT INTO review (rating, review, homeowner_id, traveller_id, book_id,rental_property_id) VALUES (?, ?, ?, ?, ?,?)",
                 rating,
                 reviewText,
                 homeownerId,
                 travellerId,
-                bookId
+                bookId,
+                rentalPropertyId
         );
     }
 
@@ -116,6 +118,35 @@ public class ReviewController {
 
         System.out.println(reviews.get(0).getReviewId());
         return reviews.get(0);
+    }
+
+
+    @GetMapping("/reviews/house/{houseId}")
+    Collection<Review> getReviewByHouse(@PathVariable int houseId) {
+        String sql = "SELECT * FROM review WHERE rental_property_id = ?";
+        Object[] params = {houseId};
+
+        List<Review> reviews = jdbcTemplate.query(
+                sql,
+                params,
+                (rs, rowNum) -> {
+                    Review review = new Review();
+                    review.setReviewId(rs.getInt("review_id"));
+                    review.setRating(rs.getInt("rating"));
+                    review.setReview(rs.getString("review"));
+                    review.setHomeownerId(rs.getInt("homeowner_id"));
+                    review.setTravellerId(rs.getInt("traveller_id"));
+                    review.setBookId(rs.getInt("book_id"));
+                    return review;
+                }
+        );
+
+        if (reviews.isEmpty()) {
+            throw new NoSuchElementException("Review not found with ID: " + houseId);
+        }
+
+        System.out.println(reviews.get(0).getReviewId());
+        return reviews;
     }
 
 }

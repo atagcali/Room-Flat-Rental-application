@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {useState,useEffect} from 'react';
+import {useEffect} from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -7,8 +8,9 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
+import Modal from '@mui/material/Modal';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import Review from './Review';
 import { AiFillStar } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
 import {
@@ -21,17 +23,23 @@ import {
 } from '../themes/commonStyles';
 import './HouseCard.css';
 import houseImageSrc from "../fdata/image.jpg";
-import Review from './Review';
-const RentHouse =  ({ house }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [reviews,setReviews] = useState([]);
-  const [currentHouse,setCurrentHouse] = useState();
+const MyProperty = ({ house }) => {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [reviews,setReviews] = React.useState([]);
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const t2 = parseInt(house.id);
-        console.log(house); // Confirm that the house object is logged correctly
-        console.log(t2); // Confirm the parsed integer value of house.id
+
   
         const response = await axios.get(`http://localhost:8080/api/reviews/house/${t2}`);
         setReviews(response.data);
@@ -44,7 +52,6 @@ const RentHouse =  ({ house }) => {
       fetchBookings();
     }
   }, [house]);
-  
   const maxSteps = 1;
   const hid = house.id;
   const handleNext = () => {
@@ -53,6 +60,9 @@ const RentHouse =  ({ house }) => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1); // when we click the back arrow
+  };
+  const handleRemove = async () => {
+    
   };
 
   const handleStepChange = (step) => {
@@ -118,6 +128,12 @@ const RentHouse =  ({ house }) => {
           <Typography component="h5" align="left">
             Price: {house.price}, Max Guest: {house.maxGuests}
           </Typography>
+          <Button component={Link} to={`/Edit/${hid}`} variant="contained">
+            Edit
+          </Button>
+          <Button  onClick = {handleRemove} variant="contained">
+            Remove
+          </Button>
         </Box>
         <Box sx={{ mt: 2 }}>
           <Box sx={dFlex}>
@@ -129,14 +145,21 @@ const RentHouse =  ({ house }) => {
             
           </Box>
         </Box>
-       
       </Box>
-      <Review reviews = {reviews} />
+      <Button onClick={handleOpenModal} variant="contained">
+        Show Reviews
+      </Button>
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'white', p: 4 }}>
+         
+          <Review reviews={reviews} />
+        </Box>
+      </Modal>
     </Box>
   );
 };
 
-export default RentHouse;
+export default MyProperty;
 
 
 

@@ -39,6 +39,10 @@ const HouseSearch = ({ filter, onFilterChange }) => {
     setFlag(!flag); 
     navigate("/MyHouses");
   };
+  const handleClick3 = () =>{
+    setFlag(!flag); 
+    navigate("/MyBookings");
+  };
   return (
     <Paper
       sx={{
@@ -88,6 +92,17 @@ const HouseSearch = ({ filter, onFilterChange }) => {
                 textTransform={'none'}
               >
                 MyHomes
+              </Typography>
+              </Button>
+              <Button onClick={handleClick3} color={flag ? "primary":"secondary"}>
+              <Typography
+                sx={{
+                  color: (theme) => theme.palette.text.primary,
+                  
+                }}
+                textTransform={'none'}
+              >
+                MyBookings
               </Typography>
               </Button>
          

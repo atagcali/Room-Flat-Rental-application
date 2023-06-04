@@ -4,7 +4,7 @@ import React,{useState,useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { houses as houses } from '../fdata/test-data';
-import EditProperty from './EditProperty';
+import MyProperty from './MyProperty';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
@@ -34,7 +34,7 @@ const MyHouses = () => {
         {filteredCards.map((house) => {
           return (
             <Grid key={house.id} item xs={12} sm={4} md={4} lg={3}>
-              <EditProperty house={house} />
+              <MyProperty house={house} />
             </Grid>
           );
         })}

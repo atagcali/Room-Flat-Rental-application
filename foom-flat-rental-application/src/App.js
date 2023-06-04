@@ -12,6 +12,7 @@ import AddProperty from './components/AddProperty';
 import AddProfile from './components/AddProfile';
 import SignIn from './components/SignIn';
 import MyHouses from './components/MyHouses';
+import BookedProperty from './components/BookedProperty';
 //import Footer from 'components/Footer';
 //import FooterMenu from 'components/FooterMenu';
 import { displayOnDesktop } from './themes/commonStyles';
@@ -20,6 +21,8 @@ import Messages from './components/Messages';
 import ChangePassword from './components/changePassword';
 import AddBalance from './components/AddBalance';
 import ChangeEmail from './components/ChangeEmail';
+import EditProperty from './components/EditProperty';
+
 //import MobileFooter from 'components/MobileFooter';
 
 function App() {
@@ -63,10 +66,12 @@ function App() {
           <Route exact path="/" element={<SignIn/>} />
           <Route path="/Home" element={<HouseCards filter={filter}/>} />
           <Route path="/MyHouses" element={<MyHouses/>} />
+          <Route path="/MyBookings" element={<BookedProperty/>} />
           <Route path="/Register" element={<AddProfile/>}/>
           <Route path="Payment/:id" element = {<Payment/>} />
           <Route path="/EditProfile" element={<EditProfile/>} />
           <Route path ="/ListHouse" element ={<AddProperty/>}/>
+          <Route path ="/Edit/:id" element ={<EditProperty/>}/>
           <Route path="/ForgotPasswordPage" element={<ForgotPasswordPage/>}/>
           <Route path="/Messages" element={<Messages/>}/>
           <Route path="/ChangePassword" element={<ChangePassword/>}/>

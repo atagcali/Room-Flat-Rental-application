@@ -72,7 +72,7 @@ const AddProperty = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'balance' || name === 'maxGuests') {
+    if (name === 'balance' || name === 'maxGuests'  || name === 'maxStay' || name === 'minStay') {
       setHouse((prevHouse) => ({
         ...prevHouse,
         [name]: parseFloat(value) || 0, // Convert the value to a number or set it to 0 if it's not a valid number
@@ -147,6 +147,14 @@ const AddProperty = () => {
                     <Box className={classes.property}>
                         <Typography variant="h6" gutterBottom>Max Guests:</Typography>
                         <TextField label="Maximum guests" variant="outlined" name= 'maxGuests' onChange={handleChange} />
+                    </Box>
+                      <Box className={classes.property}>
+                        <Typography variant="h6" gutterBottom>Max Guests:</Typography>
+                        <TextField label="Maximum Stay" variant="outlined" name= 'maxStay' onChange={handleChange} />
+                    </Box>
+                    <Box className={classes.property}>
+                        <Typography variant="h6" gutterBottom>Max Guests:</Typography>
+                        <TextField label="Minimum Stay" variant="outlined" name= 'minStay' onChange={handleChange} />
                     </Box>
                     <Box className={classes.property} >
                         <Typography variant="h6" gutterBottom>Price:</Typography>

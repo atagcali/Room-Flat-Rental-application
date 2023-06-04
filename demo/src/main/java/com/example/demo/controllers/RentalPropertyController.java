@@ -102,8 +102,8 @@ public class RentalPropertyController {
         int maxStay = jsonNode.get("maxStay").asInt();
         String cancellationPolicy = jsonNode.get("cancellationPolicy").asText();
         BigDecimal rating = jsonNode.get("rating").decimalValue();
-        boolean isAvailableInEmergency = jsonNode.get("isAvailableInEmergency").asBoolean();
-        boolean isPetFriendly = jsonNode.get("isPetFriendly").asBoolean();
+        boolean availableInEmergency = jsonNode.get("availableInEmergency").asBoolean();
+        boolean petFriendly = jsonNode.get("petFriendly").asBoolean();
         boolean hasParking = jsonNode.get("hasParking").asBoolean();
         boolean hasBalcony = jsonNode.get("hasBalcony").asBoolean();
         boolean hasPool = jsonNode.get("hasPool").asBoolean();
@@ -121,8 +121,8 @@ public class RentalPropertyController {
                 maxStay,
                 cancellationPolicy,
                 rating,
-                isAvailableInEmergency,
-                isPetFriendly,
+                availableInEmergency,
+                petFriendly,
                 hasParking,
                 hasBalcony,
                 hasPool,

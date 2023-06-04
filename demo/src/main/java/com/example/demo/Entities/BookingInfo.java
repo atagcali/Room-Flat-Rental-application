@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import java.util.Date;
+
 public class BookingInfo {
 
     private int bookingId;
@@ -12,6 +14,9 @@ public class BookingInfo {
     private String address;
     private String zipCode;
     private String country;
+
+    private Date checkinDate;
+    private Date checkoutDate;
     private String neighborhood;
     private String district;
 
@@ -40,6 +45,14 @@ public class BookingInfo {
 
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public void setCheckinDate(Date checkinDate) {
+        this.checkinDate = checkinDate;
+    }
+
+    public void setCheckoutDate(Date checkoutDate) {
+        this.checkoutDate = checkoutDate;
     }
 
     public int getRentalPropertyId() {
