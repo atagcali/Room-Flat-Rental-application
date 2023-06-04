@@ -37,7 +37,7 @@ const Payment =  () => {
     try {
       
       
-      const response = await axios.get(`http://localhost:8080/api/rental-properties/${id}`);
+      const response = await axios.get(`http://localhost:8080/api/rental-properties-location/${id}`);
       setHouse(response.data);
       const t1 = parseInt(response.data.userId);
       const response2 = await axios.get(`http://localhost:8080/api/user/${t1}`);

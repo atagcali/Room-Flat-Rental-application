@@ -115,7 +115,16 @@ const RentHouse =  ({ house }) => {
           <Typography component="h5" align="left">
             Description: {house.description}
           </Typography>
-          <Typography component="h5" align="left">
+          <Typography component="h4" align="left" variant="caption">
+            PetFriendly: {String(house.petFriendly)} Balcony: {String(house.hasBalcony)}
+          </Typography>
+          <Typography component="h4" align="left" variant="caption">
+            Parking: {String(house.hasParking)} Pool: {String(house.hasPool)}
+          </Typography>
+          <Typography component="h4" align="left" variant="caption">
+            Emergency: {String(house.availableInEmergency)} 
+          </Typography>
+          <Typography component="h5" align="left" >
             Price: {house.price}, Max Guest: {house.maxGuests}
           </Typography>
         </Box>
