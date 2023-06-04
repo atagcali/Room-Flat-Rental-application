@@ -4,6 +4,7 @@ import axios from 'axios';
 const AddBalance = () => {
   const [newBalance, setNewBalance] = useState('');
   const [balanceChanged, setBalanceChanged] = useState(false);
+  const [inputError, setInputError] = useState(false);
 
   const handleChangeBalance = async (e) => {
     e.preventDefault();
@@ -38,6 +39,16 @@ const AddBalance = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*$/.test(inputValue)) {
+      setNewBalance(inputValue);
+      setInputError(false);
+    } else {
+      setInputError(true);
+    }
+  };
+
   return (
     <div>
       <h2>Add Balance</h2>
@@ -46,10 +57,11 @@ const AddBalance = () => {
         <input
           type="text"
           value={newBalance}
-          onChange={(e) => setNewBalance(e.target.value)}
+          onChange={handleInputChange}
           placeholder="New Balance"
           required
         />
+        {inputError && <p>Please enter a numeric value for the balance.</p>}
         <button type="submit">Add Balance</button>
       </form>
     </div>
